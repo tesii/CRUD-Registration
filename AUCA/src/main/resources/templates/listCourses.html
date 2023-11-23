@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Academic Units</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .add-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Academic Units</h1>
+
+    <table>
+        <thead>
+            <tr>
+               <th scope="col">ID</th>
+                <th scope="col">Student ID</th>
+                <th scope="col">Academic Unit ID</th>
+                <th scope="col">Teacher ID</th>
+                <th scope="col">Semester</th>
+                <th scope="col">Course Definition ID</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="course : ${courses}">
+                <td th:text="${course.id}"></td>
+                <td th:text="${course.student_id}"></td>
+                <td th:text="${course.academic_unit_id}"></td>
+                <td th:text="${course.teacherID}"></td>
+                <td th:text="${course.semester}"></td>
+                <td th:text="${course.coursedefinitionid}"></td>
+                <td>
+                    <!-- Add a link or button for each row -->
+                    <a th:href="@{'/addToCourseList/' + ${course.id}}" class="add-button">Add To Course List</a>
+                </td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</body>
+</html>

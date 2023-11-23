@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Academic Unit</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Insert Academic Unit</h1>
+
+    <form th:action="@{/saveacademicunit}" th:object="${academicModel}" method="post">
+        <label for="code">Code:</label>
+        <input type="text" id="code" name="code" required>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+           <label for="parentId">Parent Academic Unit:</label>
+            <select id="parentId" name="parentId" th:field="*{parentId}">
+           
+                <option th:each="academic : ${academics}" th:value="${academic.code}" th:text="${academic.code}" />
+            </select>
+
+        <label for="academicUnitType">Academic Unit Type:</label>
+        <select id="academicUnitType" name="academicUnitType" required>
+			 
+            <option th:each="unitType : ${T(auca.registration.rw.AUCA.model.EAcademicUnit).values()}" th:value="${unitType}" th:text="${unitType}"></option>
+        </select>
+
+        <button type="submit">Insert Academic Unit</button>
+    </form>
+</body>
+</html>

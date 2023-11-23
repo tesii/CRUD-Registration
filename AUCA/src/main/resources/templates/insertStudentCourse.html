@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Student Courses</title>
+
+    <!-- Add your custom stylesheet link here -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+		body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+	</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Insert Student Courses</h1>
+
+    <form th:action="@{/savestudentcourses}" th:object="${studentcourseModel}" method="post">
+        <!-- Existing fields -->
+        <div class="form-group">
+            <label for="ID">ID:</label>
+            <input type="text" id="ID" name="ID" th:field="*{ID}" required>
+        </div>
+
+         <label for="registration">Registration:</label>
+        <select id="registration" name="studentID" th:field="*{studentID}">
+            <option th:each="registration : ${registrations}" th:value="${registration.id}" th:text="${registration.id}" />
+        </select>
+
+        <!-- Dropdown for Courses -->
+        <label for="course">Course:</label>
+        <select id="course" name="courseID" th:field="*{courseID}">
+            <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.id}" />
+        </select>
+
+        <div class="form-group">
+            <label for="credits">Credits:</label>
+            <input type="text" id="credits" name="credits" th:field="*{credits}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="results">Results:</label>
+            <input type="text" id="results" name="results" th:field="*{results}" required>
+        </div>
+
+      
+
+        <button type="submit">Insert Student Course</button>
+    </form>
+</div>
+
+</body>
+</html>

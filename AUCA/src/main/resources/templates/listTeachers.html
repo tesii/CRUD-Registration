@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Teachers</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Teachers</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Qualification</th>
+                  <th scope="col">Tutor</th>
+                    <th scope="col">QAssistant tutor</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Example rows (replace with dynamic data) -->
+            <tr th:each="teacher : ${teachers}">
+                <td th:text="${teacher.code}"></td>
+                <td th:text="${teacher.name}"></td>
+                <td th:text="${teacher.qualification}"></td>
+                 <td th:text="${teacher.tutor}"></td>
+                  <td th:text="${teacher.assistant_tutor}"></td>
+                <td><a class="btn btn-secondary btn-sm">Add To Teacher List</a></td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Course Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Course Form</h2>
+
+    <form th:action="@{/savecourse}" th:object="${courseModel}" method="post">
+
+        <label for="id">Course ID:</label>
+        <input type="text" id="id" name="id" required>
+
+        <!-- Dropdown for Students -->
+        <label for="student">Student:</label>
+        <select id="student" name="student_id" th:field="*{student_id}">
+            <option th:each="student : ${students}" th:value="${student.regNo}" th:text="${student.regNo}" />
+        </select>
+
+        <!-- Dropdown for Teachers -->
+        <label for="teacher">Teacher:</label>
+        <select id="teacher" name="teacherID" th:field="*{teacherID}">
+            <option th:each="teacher : ${teachers}" th:value="${teacher.code}" th:text="${teacher.code}" />
+        </select>
+
+        <!-- Dropdown for Semesters -->
+        <label for="semester">Semester:</label>
+        <select id="semester" name="semester" th:field="*{semester}">
+            <option th:each="semester : ${semesters}" th:value="${semester.id}" th:text="${semester.id}" />
+        </select>
+
+        <!-- Dropdown for Academic Units -->
+        <label for="academicUnit">Academic Unit:</label>
+        <select id="academicUnit" name="academic_unit_id" th:field="*{academic_unit_id}">
+            <option th:each="academicUnit : ${academicUnits}" th:value="${academicUnit.code}" th:text="${academicUnit.code}" />
+        </select>
+
+        <!-- Dropdown for Course Definitions -->
+        <label for="courseDefinition">Course Definition:</label>
+        <select id="courseDefinition" name="coursedefinitionid" th:field="*{coursedefinitionid}">
+            <option th:each="courseDefinition : ${cdefinitions}" th:value="${courseDefinition.id}" th:text="${courseDefinition.id}" />
+        </select>
+
+        <button type="submit">Submit</button>
+
+    </form>
+
+</body>
+</html>

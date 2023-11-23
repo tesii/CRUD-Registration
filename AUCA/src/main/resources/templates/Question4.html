@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Students by Semester and Department</title>
+      <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 30px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            
+        }
+
+        select {
+            padding: 10px;
+            width: 40%;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: rgb(0, 0, 0);
+        }
+
+        table {
+            margin-top: 40px;
+            border-collapse: collapse;
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+.horizontal-tables {
+    display: flex;
+}
+
+.horizontal-tables table {
+    margin-right: 30px;
+}
+
+        button.goback-button {
+            padding: 1px 5px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 10px;
+            float: left;
+           
+            font-size: 10px;
+        }
+ .merged-tables {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px;
+    }
+
+    .merged-tables table {
+        border-collapse: collapse;
+        width: 45%; /* Adjust the width as needed */
+        margin-right: 10px;
+    }
+
+    .merged-tables th, .merged-tables td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+        button.goback-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Question 4: List Courses By Semester and Department</h1>
+		<form th:action="@{/listCoursesByDepartmentAndSemester}" th:object="${courseModel}" method="post">
+
+        <!-- Dropdown for Semesters -->
+        <label for="semester">Select Semester:</label>
+        <select id="semester" name="semester" th:field="*{semester}">
+            <option th:each="semester : ${semesters}" th:value="${semester.id}" th:text="${semester.id}" />
+        </select>
+        
+<label for="academic_unit_id">Select Department:</label>
+<select id="academic_unit_id" name="academic_unit_id" th:field="*{academic_unit_id}">
+    <option th:each="academicUnit : ${academicUnits}" th:value="${academicUnit.code}" th:text="${academicUnit.code}" />
+</select>
+
+        
+        <br><br>
+        <button type="submit">Show Courses</button>
+    </form>
+<div class="horizontal-tables">
+
+<table>
+    <thead>
+        <tr>
+            <th>Course ID</th>
+            <th>Course Code</th>
+            <th>Course Names</th>
+            <th>Teacher</th>
+            <th>Tutor</th>
+            <th>Assistant</th>
+            <!-- Add more columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Use Thymeleaf to iterate over the list of courses and display information -->
+        <tr th:each="courseDefinition : ${cdefinitions}">
+            <td th:text="${courseDefinition.id}"></td>
+            <td th:text="${courseDefinition.course_code}"></td>
+            <td th:text="${courseDefinition.name}"></td>
+
+            <!-- Add more cells for additional course information -->
+
+            <!-- Use nested iteration to iterate over the list of teachers -->
+            <td th:each="teacher : ${teachers}" th:text="${teacher.name}"></td>
+            <td th:each="teacher : ${teachers}" th:text="${teacher.assistant_tutor}"></td>
+            <td th:each="teacher : ${teachers}" th:text="${teacher.tutor}"></td>
+
+            <!-- Add more cells for additional teacher information -->
+        </tr>
+    </tbody>
+</table>
+<button class="goback-button" onclick="location.href='/listCoursesByDepartmentAndSemesterForm'">Go Back to Form</button>
+
+
+   
+</div>
+    <footer>
+        &copy; 2023 Your Company Name
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Teacher</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        form {
+            display: inline-block;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Insert Teacher</h1>
+
+    <form th:action="@{/saveteacher}" method="post">
+        <label for="code">Code:</label>
+        <input type="text" id="code" name="code" required>
+
+
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+    <label for="qualification">Qualification:</label>
+<select id="qualification" name="qualification" required>
+    <option th:each="qualification : ${T(auca.registration.rw.AUCA.model.EQualification).values()}"
+            th:value="${qualification}" th:text="${qualification}"></option>
+</select>
+
+
+        <label for="tutor">Tutor:</label>
+        <input type="text" id="tutor" name="tutor" required>
+                <label for="assistant_tutor">Assistant Tutor:</label>
+        <input type="text" id="assistant_tutor" name="assistant_tutor" required>
+
+        <button type="submit">Insert Teacher</button>
+    </form>
+</body>
+</html>

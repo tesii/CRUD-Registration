@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+	<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Home Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #333;
+            padding: 15px;
+            color: #fff;
+        }
+
+        nav {
+            background-color: #444;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        h1 {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student's Dashboard</h1>
+    </header>
+
+    <nav>
+		
+      <a th:href="@{/}">Home</a>
+<a th:href="@{/student}">Student</a>
+<a th:href="@{/liststudent}">List Of Student</a>
+<a th:href="@{/semester}">Semester</a>
+<a th:href="@{/listsemesters}">List Of Semesters</a>
+<a th:href="@{/academicForm}">Academics</a>
+<a th:href="@{/listacademicunits}">List Of Academic Units</a>
+<a th:href="@{/teacher}">Teachers</a>
+<a th:href="@{/listteachers}">List Of Teachers</a>
+<a th:href="@{/cdefinition}">Course Definition</a>
+<a th:href="@{/listcdefinitions}">List Of Course Definition</a>
+<a th:href="@{/courseForm}">Courses</a>
+<a th:href="@{/listcourses}">List Of Courses</a>
+<a th:href="@{/registrationForm}">Insert registration</a>
+<a th:href="@{/listregistrations}">List Of Student Registration</a>
+<a th:href="@{/studentcourseForm}">Student Courses</a>
+<a th:href="@{/liststudentcourses}">List Of Student Courses</a>
+<a th:href="@{/listStudentBySemesterForm}">Question 1</a>
+<a th:href="@{/listStudentBySemesterAndDepartmentForm}">Question 2</a>
+<a th:href="@{/listStudentByCourseAndSemesterForm}">Question 3</a>
+<a th:href="@{/listCoursesByDepartmentAndSemesterForm}">Question 4</a>
+<a th:href="@{/listCoursesByStudentForm}">Question 5</a>
+
+<!--<a th:href="@{/listStudentsBySemester}">List Students By Semester</a>-->
+    </nav>
+
+    <div>
+ 
+    </div>
+</body>
+</html>

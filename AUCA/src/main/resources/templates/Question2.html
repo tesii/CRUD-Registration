@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Students by Semester and Department</title>
+      <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 30px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            
+        }
+
+        select {
+            padding: 10px;
+            width: 40%;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: rgb(0, 0, 0);
+        }
+
+        table {
+            margin-top: 40px;
+            border-collapse: collapse;
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        button.goback-button {
+            padding: 8px 12px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            float: left;
+            font-size: 14px;
+        }
+
+        button.goback-button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Question 2: List Students By Semester and Department</h1>
+		<form th:action="@{/listStudentsBySemesterAndDepartment}" th:object="${registrationModel}" method="post">
+
+        <!-- Dropdown for Semesters -->
+        <label for="semester">Select Semester:</label>
+        <select id="semester" name="semester_id" th:field="*{semester_id}">
+            <option th:each="semester : ${semesters}" th:value="${semester.id}" th:text="${semester.id}" />
+        </select>
+        
+       <!-- Dropdown for Academic Units (Departments) -->
+<label for="academic_unit_id">Select Department:</label>
+<select id="academic_unit_id" name="academic_unit_id" th:field="*{academic_unit_id}">
+    <option th:each="academicUnit : ${academicUnits}" th:value="${academicUnit.code}" th:text="${academicUnit.code}" />
+</select>
+
+        
+        <br><br>
+        <button type="submit">Show Students</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Student Names</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Use Thymeleaf to iterate over the list of students and display them -->
+            <tr th:each="student : ${students}">
+                <td th:text="${student.regNo}"></td>
+                <td th:text="${student.firstName}"></td>
+                <!-- Add more cells for additional student information -->
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="goback-button" onclick="location.href='/listStudentBySemesterAndDepartmentForm'">Go Back to Form</button>
+
+    <footer>
+        &copy; 2023 Your Company Name
+    </footer>
+</body>
+
+</html>

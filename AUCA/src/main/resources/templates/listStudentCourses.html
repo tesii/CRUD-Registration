@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Student Courses</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .add-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Student Courses</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Course ID</th>
+                <th scope="col">Credits</th>
+                <th scope="col">Results</th>
+                <th scope="col">Student ID</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Example rows (replace with dynamic data) -->
+            <tr th:each="studentcourse : ${studentcourses}">
+                <td th:text="${studentcourse.ID}"></td>
+                <td th:text="${studentcourse.courseID}"></td>
+                <td th:text="${studentcourse.credits}"></td>
+                <td th:text="${studentcourse.results}"></td>
+                <td th:text="${studentcourse.studentID}"></td>
+                <td>
+                    <!-- Add a link or button for each row -->
+                    <a th:href="@{'/addToStudentCourseList/' + ${studentcourse.ID}}" class="add-button">Add To Student Course List</a>
+                </td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</body>
+</html>
