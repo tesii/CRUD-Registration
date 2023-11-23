@@ -84,76 +84,9 @@ public class CourseController {
         return "redirect:/listcourses";
     }
 
-    @GetMapping("/listCoursesByDepartmentAndSemesterForm")
-    public String getCoursesByDepartmentAndSemesterForm(Model model) {
-        model.addAttribute("courseModel", new CourseModel());
-        model.addAttribute("semesters", semesterRepository.findAll());
-        model.addAttribute("academicUnits", academicUnitRepository.findAll());
-        return "Question4";
-    }
-
-
-    @PostMapping("/listCoursesByDepartmentAndSemester")
-    public String showCoursesByDepartmentAndSemester(@ModelAttribute CourseModel courseModel, Model model) {
-        String selectedSemesterId = courseModel.getSemester();
-        String selectedDepartmentId = courseModel.getAcademic_unit_id(); // Assuming you have a department_id field in RegistrationModel
-
-        // Use the selected semesterId and departmentId to fetch data from the repository
-        List<CourseModel> courses = courseRepository.findBySemesterAndAcademicUnitCode(selectedSemesterId, selectedDepartmentId );
-
-
-        // Create a list of DTOs (Data Transfer Objects) to hold combined information
-        List<CDefinitionModel> cdefinitions = new ArrayList<>();
-        List<TeacherModel> teachers = new ArrayList<>();
-        // Iterate through registrations and extract relevant information
-        for (CourseModel course : courses) {
-            CDefinitionModel courseDefinition = course.getCourseDefinition();
-            cdefinitions.add(new CDefinitionModel(course.getId(), courseDefinition.getCourse_code(), courseDefinition.getName(), courseDefinition.getDescription()));
-            
-            TeacherModel teacher = course.getTeacher();
-            teachers.add(new TeacherModel(course.getId(), teacher.getName(), teacher.getTutor(), teacher.getAssistant_tutor(), teacher.getQualification()));
-        }
-
-        // Add the list of DTOs to the model
-        model.addAttribute("cdefinitions", cdefinitions);
-        model.addAttribute("teachers", teachers);
-        return "Question4";
-    }
+  
     
-    @GetMapping("/listCoursesByStudentForm")
-    public String getCoursesByStudentForm(Model model) {
-        model.addAttribute("courseModel", new CourseModel());
-        model.addAttribute("students", studentRepository.findAll());
-
-        return "Question5";
-    }
-
-
-    @PostMapping("/listCoursesByStudent")
-    public String showCoursesByStudent(@ModelAttribute CourseModel courseModel, Model model) {
-        String selectedStudentId = courseModel.getStudent_id();
-
-
-        List<CourseModel> courses = courseRepository.findByStudentRegNo(selectedStudentId );
-
-
-        // Create a list of DTOs (Data Transfer Objects) to hold combined information
-        List<CDefinitionModel> cdefinitions = new ArrayList<>();
-        List<TeacherModel> teachers = new ArrayList<>();
-        // Iterate through registrations and extract relevant information
-        for (CourseModel course : courses) {
-            CDefinitionModel courseDefinition = course.getCourseDefinition();
-            cdefinitions.add(new CDefinitionModel(course.getId(), courseDefinition.getCourse_code(), courseDefinition.getName(), courseDefinition.getDescription()));
-            
-            TeacherModel teacher = course.getTeacher();
-            teachers.add(new TeacherModel(course.getId(), teacher.getName(), teacher.getTutor(), teacher.getAssistant_tutor(), teacher.getQualification()));
-        }
-
-        // Add the list of DTOs to the model
-        model.addAttribute("cdefinitions", cdefinitions);
-        model.addAttribute("teachers", teachers);
-        return "Question5";
-    }
+    
     @GetMapping("/listCourseByDepartmentAndSemesterForm")
     public ResponseEntity<Map<String, Object>> getStudentsForm() {
         Map<String, Object> response = new HashMap<>();
