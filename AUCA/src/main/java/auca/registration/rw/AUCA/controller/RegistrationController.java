@@ -85,35 +85,6 @@ public class RegistrationController {
         return "redirect:/listregistrations";
     }
 
-    @GetMapping("/listStudentBySemesterForm")
-    public String getStudentForm(Model model) {
-        model.addAttribute("registrationModel", new RegistrationModel());
-        model.addAttribute("semesters", semesterRepository.findAll());
-        return "Question1";
-    }
-
-
-    @PostMapping("/listStudentsBySemester")
-    public String showStudentsBySemester(@ModelAttribute RegistrationModel registrationModel, Model model) {
-        String selectedSemesterId = registrationModel.getSemester_id();
-        
-        // Use the selected semesterId to fetch data from the repository
-        List<RegistrationModel> registrations = registrationRepository.findBySemester_id(selectedSemesterId);
-
-        // Create a list of DTOs (Data Transfer Objects) to hold combined information
-        List<Student> students = new ArrayList<>();
-
-        // Iterate through registrations and extract relevant information
-        for (RegistrationModel registration : registrations) {
-            Student student = registration.getStudent();
-            students.add(new Student(registration.getStudent_id(), student.getFirstName(), student.getDateOfBirth()));
-        }
-
-        // Add the list of DTOs to the model
-        model.addAttribute("students", students);
-
-        return "Question1";
-    }
 
     @GetMapping("/listStudentBySemestersForm")
     public ResponseEntity<List<Semester>> getStudentForm() {
@@ -141,38 +112,7 @@ public class RegistrationController {
     }
 
 
-    @GetMapping("/listStudentBySemesterAndDepartmentForm")
-    public String getStudentsForm(Model model) {
-        model.addAttribute("registrationModel", new RegistrationModel());
-        model.addAttribute("semesters", semesterRepository.findAll());
-        model.addAttribute("academicUnits", academicUnitRepository.findAll());
-        return "Question2";
-    }
-
-
-    @PostMapping("/listStudentsBySemesterAndDepartment")
-    public String showStudentBySemester(@ModelAttribute RegistrationModel registrationModel, Model model) {
-        String selectedSemesterId = registrationModel.getSemester_id();
-        String selectedDepartmentId = registrationModel.getAcademic_unit_id(); // Assuming you have a department_id field in RegistrationModel
-
-        // Use the selected semesterId and departmentId to fetch data from the repository
-        List<RegistrationModel> registrations = registrationRepository.findBySemesterIdAndAcademicUnitCode(selectedSemesterId, selectedDepartmentId );
-
-
-        // Create a list of DTOs (Data Transfer Objects) to hold combined information
-        List<Student> students = new ArrayList<>();
-
-        // Iterate through registrations and extract relevant information
-        for (RegistrationModel registration : registrations) {
-            Student student = registration.getStudent();
-            students.add(new Student(registration.getStudent_id(), student.getFirstName(), student.getDateOfBirth()));
-        }
-
-        // Add the list of DTOs to the model
-        model.addAttribute("students", students);
-
-        return "Question2";
-    }
+    
     
     @GetMapping("/listStudentBySemesterAndDepartmentsForm")
     public ResponseEntity<Map<String, Object>> getStudentsForm() {
@@ -202,38 +142,7 @@ public class RegistrationController {
 
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
-    @GetMapping("/listStudentByCourseAndSemesterForm")
-    public String getStudentsByCourseAndSemesterForm(Model model) {
-        model.addAttribute("registrationModel", new RegistrationModel());
-        model.addAttribute("semesters", semesterRepository.findAll());
-        model.addAttribute("courses", courseRepository.findAll());
-        return "Question3";
-    }
-
-
-    @PostMapping("/listStudentsByCourseAndSemester")
-    public String showStudentByCourseAndSemester(@ModelAttribute RegistrationModel registrationModel, Model model) {
-        String selectedSemesterId = registrationModel.getSemester_id();
-        String selectedCourseId = registrationModel.getCourse_id(); // Assuming you have a department_id field in RegistrationModel
-
-        // Use the selected semesterId and departmentId to fetch data from the repository
-        List<RegistrationModel> registrations = registrationRepository.findBySemesterIdAndCourseId(selectedSemesterId, selectedCourseId );
-
-
-        // Create a list of DTOs (Data Transfer Objects) to hold combined information
-        List<Student> students = new ArrayList<>();
-
-        // Iterate through registrations and extract relevant information
-        for (RegistrationModel registration : registrations) {
-            Student student = registration.getStudent();
-            students.add(new Student(registration.getStudent_id(), student.getFirstName(), student.getDateOfBirth()));
-        }
-
-        // Add the list of DTOs to the model
-        model.addAttribute("students", students);
-
-        return "Question3";
-    }
+   
 
     @GetMapping("/listStudentByCoursesAndSemesterForm")
     public ResponseEntity<Map<String, Object>> getStudentssForm() {
